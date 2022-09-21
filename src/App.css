@@ -36,3 +36,9 @@
     transform: rotate(360deg);
   }
 }
+
+.bg-gray {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(226, 226, 226);
+}
