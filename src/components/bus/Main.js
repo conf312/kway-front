@@ -12,12 +12,12 @@ function getDistanceFromLatLon(lat1,lng1,lat2,lng2) {
       return deg * (Math.PI/180)
   }
 
-  var R = 6378137; // Radius of the earth in meter
-  var dLat = deg2rad(lat2-lat1);
-  var dLon = deg2rad(lng2-lng1);
-  var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon/2) * Math.sin(dLon/2);
-  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-  var d = R * c;
+  let R = 6378137; // Radius of the earth in meter
+  let dLat = deg2rad(lat2-lat1);
+  let dLon = deg2rad(lng2-lng1);
+  let a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon/2) * Math.sin(dLon/2);
+  let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  let d = R * c;
   return Math.round(d, 0);
 }
 
@@ -26,7 +26,7 @@ function Main() {
   useEffect(() => {
     if (navigator.geolocation) { // GPS 허용
       navigator.geolocation.getCurrentPosition(function(position) {
-        var queryParams = '?' + encodeURIComponent('serviceKey') + '=' + process.env.REACT_APP_SEOUL_STATION_SERVICE_KEY;
+        let queryParams = '?' + encodeURIComponent('serviceKey') + '=' + process.env.REACT_APP_SEOUL_STATION_SERVICE_KEY;
         queryParams += '&' + encodeURIComponent('tmX') + '=' + encodeURIComponent(position.coords.longitude);
         queryParams += '&' + encodeURIComponent('tmY') + '=' + encodeURIComponent(position.coords.latitude);
         queryParams += '&' + encodeURIComponent('radius') + '=' + encodeURIComponent('300');

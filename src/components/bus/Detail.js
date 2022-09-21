@@ -2,39 +2,52 @@ import { useEffect, useState } from 'react';
 import { Card } from 'react-bootstrap';
 import { useParams } from "react-router-dom";
 import * as AxiosUtil from '../../lib/AxiosUtil';
+import BusStationMap from '../modal/BusStationMap';
+import { maps_1 } from '../../images';
 
 function Detail() {
   const params = useParams();
   const [arsId, setArsId] = useState(null);
   const [stationNm, setStationNm] = useState(null);
   const [stationList, setStationList] = useState([]);
+  const [modalBusMapShow, setModalBusMapShow] = useState(false);
+  const [lat, setLat] = useState(null);
+  const [lng, setLng] = useState(null);
+
   useEffect(() => {
     setArsId(params.arsId);
     setStationNm(params.stationNm);
-    var queryParams = '?' + encodeURIComponent('serviceKey') + '=' + process.env.REACT_APP_SEOUL_STATION_SERVICE_KEY;
+
+    let queryParams = '?' + encodeURIComponent('serviceKey') + '=' + process.env.REACT_APP_SEOUL_STATION_SERVICE_KEY;
     queryParams += '&' + encodeURIComponent('arsId') + '=' + encodeURIComponent(params.arsId);
     queryParams += '&' + encodeURIComponent('resultType') + '=' + encodeURIComponent('json');
 
     AxiosUtil.send("GET", "/getSeoulStation/getLowStationByUid" + queryParams, "", "", (e) => {
       console.log(e)
       if (e.msgBody.itemList !== null) {
+        setLat(e.msgBody.itemList[0].gpsY);
+        setLng(e.msgBody.itemList[0].gpsX);
         setStationList(e.msgBody.itemList);
       }
     });
   }, []);
 
+  function getModalBusMap() {
+    setModalBusMapShow(true);
+  }
+
   function GetBusRouteAbrv(props) {
     if (props.no.length === 3) {
       return (
-        <>
-          <Card.Title className="fw-bold text-primary">{props.no}</Card.Title>
-        </>
+        <Card.Title className="fw-bold text-primary">{props.no}</Card.Title>
       );
     } else if (props.no.length === 4) {
       return (
-        <>
-          <Card.Title className="fw-bold text-success">{props.no}</Card.Title>
-        </>
+        <Card.Title className="fw-bold text-success">{props.no}</Card.Title>
+      );
+    } else {
+      return (
+        <Card.Title className="fw-bold">{props.no}</Card.Title>
       );
     }
   }
@@ -43,9 +56,9 @@ function Detail() {
     <>
       <div className="container-fluid">
         <div className="mt-4">
-          <h6 className="fw-bold mb-2 text-muted">{arsId}</h6>
-          <h5 className="fw-bold">{stationNm}</h5>
-          <p className="fw-bold" style={{fontSize:"17px"}}>지도</p>
+          <span className="fw-bold mb-2 text-muted">{arsId}</span><br/>
+          <span className="fw-bold">{stationNm}</span>
+          <img src={maps_1} alt="maps" height="40px" width="55px" style={{margin:"-25px 0 0 15px", cursor:"pointer"}} onClick={() => getModalBusMap()}></img>
         </div>
         { stationList.length > 0 && 
           stationList.map((data, idx) => (
@@ -66,6 +79,12 @@ function Detail() {
           </Card>
         }
       </div>
+      <BusStationMap
+        show={modalBusMapShow}
+        onHide={() => setModalBusMapShow(false)}
+        lat={lat}
+        lng={lng}
+      />
     </>
   )
 }
