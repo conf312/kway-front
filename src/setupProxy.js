@@ -2,10 +2,10 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 module.exports = function (app) {
   app.use(
-    createProxyMiddleware("/issuemoa", {
+    createProxyMiddleware("/kway", {
       target: "http://localhost:8000",
       pathRewrite: {
-        '^/issuemoa': "",
+        '^/kway': "",
       }
     })
   );

@@ -54,11 +54,12 @@ function Detail() {
 
   return (
     <>
-      <div className="container-fluid">
-        <div className="mt-4">
+      <div className="container-fluid bg-gray">
+        <br/>
+        <div>
           <span className="fw-bold mb-2 text-muted">{arsId}</span><br/>
-          <span className="fw-bold">{stationNm}</span>
-          <img src={maps_1} alt="maps" height="40px" width="55px" style={{margin:"-25px 0 0 15px", cursor:"pointer"}} onClick={() => getModalBusMap()}></img>
+          <span className="fw-bold" style={{fontSize:"20px"}}>{stationNm}</span>
+          <img src={maps_1} alt="maps" height="50px" width="60px" style={{margin:"-25px 0 0 15px", cursor:"pointer"}} onClick={() => getModalBusMap()}></img>
         </div>
         { stationList.length > 0 && 
           stationList.map((data, idx) => (

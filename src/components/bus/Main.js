@@ -53,10 +53,11 @@ function Main() {
 
   return (
     <>
-      <div className="container-fluid">
-        <div className="mt-4">
+      <div className="container-fluid bg-gray">
+        <br/>
+        <div>
           <img src={bus_1} alt="bus" width="50px" height="50px"/>
-          <span className="fw-bold" style={{fontSize:"17px"}}>주변 정류장</span>
+          <span className="fw-bold" style={{fontSize:"20px"}}>주변 정류장</span>
         </div>
         {stationList.map((data, idx) => (
           <Card className="mt-3" key={idx} onClick={() => getDetail(data.stationNm, data.arsId)}>

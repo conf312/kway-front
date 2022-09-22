@@ -49,7 +49,7 @@ function Header() {
       <div>
         <Navbar bg="light" expand="lg">
           <Container fluid>
-            <Navbar.Brand href="#" onClick={getMainPage}>케이웨이</Navbar.Brand>
+            <Navbar.Brand className="fw-bold" href="#" onClick={getMainPage}>케이웨이</Navbar.Brand>
             <Navbar.Toggle aria-controls="navbarScroll" />
             <Navbar.Collapse id="navbarScroll">
               <Nav
@@ -57,19 +57,11 @@ function Header() {
                 style={{ maxHeight: '100px' }}
                 navbarScroll
               >
-                <Nav.Link href="#action1">공지사항</Nav.Link>
-                <Nav.Link href="#action1">FAQ</Nav.Link>
-                <Nav.Link href="#action1">문의하기</Nav.Link>
-                <Nav.Link href="#action2">설정</Nav.Link>
+                <Nav.Link href="/notice">공지사항</Nav.Link>
+                <Nav.Link href="/faq">FAQ</Nav.Link>
+                <Nav.Link href="/inquiry">문의하기</Nav.Link>
+                <Nav.Link href="#">설정</Nav.Link>
               </Nav>
-              <Form className="d-flex">
-                <Form.Control
-                  type="search"
-                  placeholder="Search"
-                  className="me-2"
-                  aria-label="Search"
-                />
-              </Form>
             </Navbar.Collapse>
           </Container>
         </Navbar>

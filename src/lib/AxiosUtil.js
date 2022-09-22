@@ -5,12 +5,10 @@ const cookies = new Cookies();
 axios.defaults.withCredentials = true;
 
 export function send(method, url, param, type, callback) {
-  if (url.indexOf("issuemoa") > -1) {
-    axios.defaults.headers.common['X-CLIENT-KEY'] = "SamQHPleQjbSKeyRvJWElcHJvamVjdCFA";
-    axios.defaults.headers.common['Authorization'] = "Bearer " + cookies.get("accessToken");
+  if (url.indexOf("kway") > -1) {
+    axios.defaults.headers.common['X-CLIENT-KEY'] = process.env.REACT_APP_X_CLIENT_KEY;
   } else {
     axios.defaults.headers.common['X-CLIENT-KEY'] = "";
-    axios.defaults.headers.common['Authorization'] = "";
   }
   
   if (method === "GET") {
