@@ -4,6 +4,7 @@ module.exports = function (app) {
   app.use(
     createProxyMiddleware("/kway", {
       target: "http://localhost:8000",
+      changeOrigin: true,
       pathRewrite: {
         '^/kway': "",
       }

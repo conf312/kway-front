@@ -3,15 +3,12 @@ import { Table } from 'react-bootstrap';
 import * as AxiosUtil from '../../lib/AxiosUtil';
 
 function Notice() {
-  const [noticeList, setNoticeList] = useState(null);
+  const [noticeList, setNoticeList] = useState([]);
 
   useEffect(() => {
-    let frm = new FormData();
-    frm.append("type", "notice");
-
-    AxiosUtil.send("GET", "/kway/support/list", frm, "", (e) => {
+    AxiosUtil.send("GET", "/kway/support/list?type=NOTICE", "", "", (e) => {
       console.log(e)
-      const data = e.data;
+      const data = e.data.list;
       if (data !== undefined) {
         setNoticeList(data);
       }
@@ -28,14 +25,12 @@ function Notice() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Mark</td>
-            <td>Otto</td>
-          </tr>
-          <tr>
-            <td>Jacob</td>
-            <td>Thornton</td>
-          </tr>
+          {noticeList.map((data, idx) => (
+            <tr key={idx}>
+              <td>{data.title}</td>
+              <td>{data.registerTime}</td>
+            </tr>
+          ))}
         </tbody>
       </Table>
     </>

@@ -3,15 +3,12 @@ import { Accordion  } from 'react-bootstrap';
 import * as AxiosUtil from '../../lib/AxiosUtil';
 
 function Faq() {
-  const [faqList, setFaqList] = useState(null);
+  const [faqList, setFaqList] = useState([]);
   
   useEffect(() => {
-    let frm = new FormData();
-    frm.append("type", "faq");
-
-    AxiosUtil.send("GET", "/kway/support/list", frm, "", (e) => {
+    AxiosUtil.send("GET", "/kway/support/list?type=FAQ", "", "", (e) => {
       console.log(e)
-      const data = e.data;
+      const data = e.data.list;
       if (data !== undefined) {
         setFaqList(data);
       }
@@ -21,27 +18,13 @@ function Faq() {
   return (
     <>
       <Accordion>
-        <Accordion.Item eventKey="0">
-          <Accordion.Header>Accordion Item #1</Accordion.Header>
-          <Accordion.Body>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          </Accordion.Body>
-        </Accordion.Item>
-        <Accordion.Item eventKey="1">
-          <Accordion.Header>Accordion Item #2</Accordion.Header>
-          <Accordion.Body>
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
-          </Accordion.Body>
-        </Accordion.Item>
-        <Accordion.Item eventKey="2">
-          <Accordion.Header>Accordion Item #3</Accordion.Header>
-          <Accordion.Body>
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
-          </Accordion.Body>
-        </Accordion.Item>
+        {faqList.map((data, idx) => (
+          <Accordion.Item eventKey={idx}>
+            <Accordion.Header>{data.title}</Accordion.Header>
+            <Accordion.Body>{data.contents}
+            </Accordion.Body>
+          </Accordion.Item>
+        ))}
       </Accordion>
     </>
   );

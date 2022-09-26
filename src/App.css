@@ -42,3 +42,14 @@
   height: 100vh;
   background-color: rgb(226, 226, 226);
 }
+
+.back-to-top {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  cursor: pointer;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}

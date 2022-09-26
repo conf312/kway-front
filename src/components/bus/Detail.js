@@ -6,27 +6,26 @@ import BusStationMap from '../modal/BusStationMap';
 import { maps_1 } from '../../images';
 
 function Detail() {
-  const params = useParams();
   const [arsId, setArsId] = useState(null);
   const [stationNm, setStationNm] = useState(null);
   const [stationList, setStationList] = useState([]);
   const [modalBusMapShow, setModalBusMapShow] = useState(false);
   const [lat, setLat] = useState(null);
   const [lng, setLng] = useState(null);
-
+  const params = useParams();
+  
   useEffect(() => {
     setArsId(params.arsId);
     setStationNm(params.stationNm);
+    setLat(params.gpsY);
+    setLng(params.gpsX);
 
     let queryParams = '?' + encodeURIComponent('serviceKey') + '=' + process.env.REACT_APP_SEOUL_STATION_SERVICE_KEY;
     queryParams += '&' + encodeURIComponent('arsId') + '=' + encodeURIComponent(params.arsId);
     queryParams += '&' + encodeURIComponent('resultType') + '=' + encodeURIComponent('json');
-
     AxiosUtil.send("GET", "/getSeoulStation/getLowStationByUid" + queryParams, "", "", (e) => {
       console.log(e)
       if (e.msgBody.itemList !== null) {
-        setLat(e.msgBody.itemList[0].gpsY);
-        setLng(e.msgBody.itemList[0].gpsX);
         setStationList(e.msgBody.itemList);
       }
     });

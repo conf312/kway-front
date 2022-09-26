@@ -9,7 +9,7 @@ function App() {
       <Header/>
       <Routes>
         <Route exact path="/" element={ <Main/> }/>
-        <Route exact path="/detail/:stationNm/:arsId" element={ <Detail/> }/>
+        <Route exact path="/detail/:stationNm/:arsId/:gpsY/:gpsX" element={ <Detail/> }/>
         <Route exact path="/notice" element={ <Notice/> }/>
         <Route exact path="/faq" element={ <Faq/> }/>
         <Route exact path="/inquiry" element={ <Inquiry/> }/>
