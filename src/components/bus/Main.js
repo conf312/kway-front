@@ -13,7 +13,6 @@ function Main() {
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
-      console.log(window.offset)
       if (window.pageYOffset > 50) {
         setShowTopButton(true);
       } else {
