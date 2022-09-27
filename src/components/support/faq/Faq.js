@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Accordion  } from 'react-bootstrap';
-import * as AxiosUtil from '../../lib/AxiosUtil';
+import * as AxiosUtil from '../../../lib/AxiosUtil';
 
 function Faq() {
   const [faqList, setFaqList] = useState([]);

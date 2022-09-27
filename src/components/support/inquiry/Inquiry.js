@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import * as AxiosUtil from '../../lib/AxiosUtil';
+import * as AxiosUtil from '../../../lib/AxiosUtil';
 import ReCAPTCHA from 'react-google-recaptcha';
 
 function Inquiry() {

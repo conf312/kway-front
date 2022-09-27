@@ -21,10 +21,10 @@ function Header() {
                 style={{ maxHeight: '100px' }}
                 navbarScroll
               >
-                <Nav.Link href="/notice">공지사항</Nav.Link>
-                <Nav.Link href="/faq">FAQ</Nav.Link>
-                <Nav.Link href="/inquiry">문의하기</Nav.Link>
-                <Nav.Link href="#">설정</Nav.Link>
+                <Nav.Link href="/notice-list" className="fw-bold">공지사항</Nav.Link>
+                <Nav.Link href="/faq" className="fw-bold">FAQ</Nav.Link>
+                <Nav.Link href="/inquiry" className="fw-bold">문의하기</Nav.Link>
+                <Nav.Link href="#" className="fw-bold">설정</Nav.Link>
               </Nav>
             </Navbar.Collapse>
           </Container>
