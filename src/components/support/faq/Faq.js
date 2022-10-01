@@ -7,7 +7,6 @@ function Faq() {
   
   useEffect(() => {
     AxiosUtil.send("GET", "/kway/support/list?type=FAQ", "", "", (e) => {
-      console.log(e)
       const data = e.data.list;
       if (data !== undefined) {
         setFaqList(data);
@@ -20,8 +19,8 @@ function Faq() {
       <Accordion>
         {faqList.map((data, idx) => (
           <Accordion.Item eventKey={idx}>
-            <Accordion.Header>{data.title}</Accordion.Header>
-            <Accordion.Body>{data.contents}
+            <Accordion.Header className="ft-ckr-bold">{data.title}</Accordion.Header>
+            <Accordion.Body className="ft-gm">{data.contents}
             </Accordion.Body>
           </Accordion.Item>
         ))}

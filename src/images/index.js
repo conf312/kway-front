@@ -1,5 +1,9 @@
-export { default as kwayLogo } from './kway_logo_copy.png';
+export { default as kwayLogo } from './kway_logo.png';
 export { default as bus_1 } from './icon/bus_1.png';
 export { default as bus_2 } from './icon/bus_2.png';
+export { default as bus_blue } from './icon/bus_blue.png';
+export { default as bus_green } from './icon/bus_green.png';
+export { default as bus_red } from './icon/bus_red.png';
+export { default as bus_yellow } from './icon/bus_yellow.png';
 export { default as maps_1 } from './icon/maps_1.png';
 export { default as maps_2 } from './icon/maps_2.png';

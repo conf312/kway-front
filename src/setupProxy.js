@@ -19,4 +19,13 @@ module.exports = function (app) {
       }
     })
   );
+  app.use(
+    createProxyMiddleware("/getBusRouteInfo", {
+      target: "http://ws.bus.go.kr/api/rest/busRouteInfo",
+      changeOrigin: true,
+      pathRewrite: {
+        '^/getBusRouteInfo': "",
+      }
+    })
+  );
 };

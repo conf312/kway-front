@@ -7,12 +7,12 @@ function getMainPage() {
 
 function Header() {
   return (
-    <header className="Issuemoa-header">
+    <header>
       <div>
         <Navbar bg="light" expand="lg">
           <Container fluid>
             <Navbar.Brand className="fw-bold" href="#" onClick={getMainPage}>
-              <img src={kwayLogo} alt="logo" height={50} width={150}></img>
+              <img src={kwayLogo} alt="logo" height={30} width={130}></img>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="navbarScroll" />
             <Navbar.Collapse id="navbarScroll">
@@ -21,10 +21,10 @@ function Header() {
                 style={{ maxHeight: '100px' }}
                 navbarScroll
               >
-                <Nav.Link href="/notice-list" className="fw-bold">공지사항</Nav.Link>
-                <Nav.Link href="/faq" className="fw-bold">FAQ</Nav.Link>
-                <Nav.Link href="/inquiry" className="fw-bold">문의하기</Nav.Link>
-                <Nav.Link href="#" className="fw-bold">설정</Nav.Link>
+                <Nav.Link href="/notice-list" className="ft-gm">공지사항</Nav.Link>
+                <Nav.Link href="/faq" className="ft-gm">FAQ</Nav.Link>
+                <Nav.Link href="/inquiry" className="ft-gm">문의하기</Nav.Link>
+                <Nav.Link href="#" className="ft-gm">설정</Nav.Link>
               </Nav>
             </Navbar.Collapse>
           </Container>

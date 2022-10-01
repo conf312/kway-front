@@ -38,8 +38,9 @@ function Inquiry() {
   return (
     <>
       <Form className="container-fluid mt-3" noValidate validated={validated} onSubmit={handleSubmit}>
+        <h5 className="mt-3 ft-ckr-bold">고객문의</h5>
         <Form.Group className="mb-3">
-        <Form.Label>종류</Form.Label>
+        <Form.Label className="ft-gm">종류</Form.Label>
           <Form.Select name="type">
             <option value="SERVICE">서비스</option>
             <option value="QUESTION">건의 및 개선</option>
@@ -47,21 +48,21 @@ function Inquiry() {
           </Form.Select>
         </Form.Group>
         <Form.Group className="mb-3">
-          <Form.Label>이메일</Form.Label>
+          <Form.Label className="ft-gm">이메일</Form.Label>
           <Form.Control type="email" name="email" placeholder="이메일을 작성해주세요." maxLength={100} required/>
           <Form.Control.Feedback type="invalid">
             이메일을 작성해주세요.
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="mb-3">
-          <Form.Label>제목</Form.Label>
+          <Form.Label className="ft-gm">제목</Form.Label>
           <Form.Control type="text" name="title" placeholder="제목을 작성해주세요." maxLength={100} required/>
           <Form.Control.Feedback type="invalid">
             제목을 작성해주세요.
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="mb-3">
-          <Form.Label>내용</Form.Label>
+          <Form.Label className="ft-gm">내용</Form.Label>
             <Form.Control name="contents" maxLength={2000} required
             as="textarea"
             placeholder="내용을 작성해주세요."
