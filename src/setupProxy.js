@@ -28,4 +28,31 @@ module.exports = function (app) {
       }
     })
   );
+  app.use(
+    createProxyMiddleware("/getBusstationservice", {
+      target: "http://apis.data.go.kr/6410000/busstationservice",
+      changeOrigin: true,
+      pathRewrite: {
+        '^/getBusstationservice': "",
+      }
+    })
+  );
+  app.use(
+    createProxyMiddleware("/getBusarrivalservice", {
+      target: "http://apis.data.go.kr/6410000/busarrivalservice",
+      changeOrigin: true,
+      pathRewrite: {
+        '^/getBusarrivalservice': "",
+      }
+    })
+  );
+  app.use(
+    createProxyMiddleware("/getBusrouteservice", {
+      target: "http://apis.data.go.kr/6410000/busrouteservice",
+      changeOrigin: true,
+      pathRewrite: {
+        '^/getBusrouteservice': "",
+      }
+    })
+  );
 };
