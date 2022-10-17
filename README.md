@@ -8,6 +8,10 @@ GPS를 이용한 주변 버스 정류소, 도착, 노선 정보 제공 서비스
 - 구글 리캡차
 - 공공 데이터 버스 정류소 조회
 - 카카오 다음 지도
+- Web API (공지사항, FAQ, 문의사항)
+
+## 구조
+![제목 없는 다이어그램 drawio (1)](https://user-images.githubusercontent.com/13326651/196171622-6b25c53a-6776-4441-93ac-de9b4e176525.png)
 
 ## 화면 구성
 ![1](https://user-images.githubusercontent.com/13326651/196141940-04f28113-0623-414b-bbbf-a6f28d198c8d.PNG)
