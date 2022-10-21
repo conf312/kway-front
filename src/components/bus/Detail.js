@@ -24,27 +24,27 @@ function Detail() {
     setDist(params.dist);
 
     let queryParams = '?' + encodeURIComponent('serviceKey') + '=' + process.env.REACT_APP_SEOUL_STATION_SERVICE_KEY;
-    if (params.stationId === "null") {
-      queryParams += '&' + encodeURIComponent('arsId') + '=' + encodeURIComponent(params.arsId);
-      queryParams += '&' + encodeURIComponent('resultType') + '=' + encodeURIComponent('json');
-      AxiosUtil.send("GET", "/getSeoulStation/getLowStationByUid" + queryParams, "", "", (e) => {
-        if (e.msgBody.itemList !== null) {
-          setStationList(e.msgBody.itemList);
-        }
-      });
-    } else {
-      getBusApiCall();
-    }
+    console.log("params.stationId : "+params.stationId)
+    queryParams += '&' + encodeURIComponent('arsId') + '=' + encodeURIComponent(params.arsId);
+    queryParams += '&' + encodeURIComponent('resultType') + '=' + encodeURIComponent('json');
+    AxiosUtil.send("GET", "/getSeoulStation/getLowStationByUid" + queryParams, "", "", (e) => {
+      if (e.msgBody.itemList !== null) {
+        setStationList(e.msgBody.itemList);
+      } else {
+        getBusApiCall();
+      }
+    });
   }, []);
 
   function getBusApiCall() {
-    let queryParams = '?' + encodeURIComponent('serviceKey') + '=' + process.env.REACT_APP_SEOUL_STATION_SERVICE_KEY;
-    queryParams += '&' + encodeURIComponent('stationId') + '=' + encodeURIComponent(params.stationId);
-    AxiosUtil.send("GET", "/getBusarrivalservice/getBusArrivalList" + queryParams, "", "", (e) => {
+    let queryParams2 = '?' + encodeURIComponent('serviceKey') + '=' + process.env.REACT_APP_SEOUL_STATION_SERVICE_KEY;
+    queryParams2 += '&' + encodeURIComponent('stationId') + '=' + encodeURIComponent(params.stationId);
+    AxiosUtil.send("GET", "/getBusarrivalservice/getBusArrivalList" + queryParams2, "", "", (e) => {
+      console.log(e)
       const dataArr = new XMLParser().parseFromString(e).children[2];
-      let array = new Array();
       if (dataArr !== null) { 
         dataArr.children.forEach(function(item){
+          console.log(item)
           var obj = new Object();
           item.children.forEach(function(detail){
             obj[detail.name] = detail.value;
@@ -55,14 +55,16 @@ function Detail() {
                 const dataArr = new XMLParser().parseFromString(e).children[2];
                 if (dataArr !== null) { 
                   dataArr.children.forEach(function(item){
+                    console.log(item)
                     item.children.forEach(function(detail){
                       if (detail.name === "routeName") {
                         obj[detail.name] = detail.value;
-                        array.push(obj);
-                        console.log(obj)
-                        setGstationList(array);
+                      }
+                      if (detail.name === "startStationName") {
+                        obj[detail.name] = detail.value;
                       }
                     });
+                    setGstationList(prevState => [...prevState, obj]);
                   });
                 }
               });
@@ -93,7 +95,8 @@ function Detail() {
           <img src={bus_green} alt="bus_green" width={25}></img>  
           <span className="ft-gm text-success" style={{fontSize:"22px", marginLeft:"10px"}}>{props.no}</span>
           <span className="text-muted"> | </span>  
-          <span className="ft-gm text-muted">{props.adirection} 방면</span></Card.Title>
+          <span className="ft-gm text-muted">{props.adirection} 방면</span>
+        </Card.Title>
       );
     } else {
       return (
@@ -101,7 +104,8 @@ function Detail() {
           <img src={bus_yellow} alt="bus_yellow" width={25}></img>  
           <span className="ft-gm" style={{fontSize:"22px", marginLeft:"10px"}}>{props.no}</span>
           <span className="text-muted"> | </span>  
-          <span className="ft-gm text-muted"> | {props.adirection} 방면</span></Card.Title>
+          <span className="ft-gm text-muted"> | {props.adirection} 방면</span>
+        </Card.Title>
       );
     }
   }
@@ -136,12 +140,12 @@ function Detail() {
               <Card.Body>
                 <Card.Title>
                   <img src={bus_green} alt="bus_green" width={25}></img>  
-                  <span className="ft-gm text-success" style={{fontSize:"22px"}}> {data.routeName}</span>
+                  <span className="ft-gm" style={{fontSize:"22px"}}> {data.routeName}</span>
                   <span className="text-muted"> | </span>  
-                  <span className="ft-gm text-muted">방면</span>
+                  <span className="ft-gm text-muted">{data.startStationName} 방면</span>
                 </Card.Title>
-                <Card.Subtitle className="ft-gm mt-3 text-danger">{data.predictTime1}분후[{data.locationNo1}번째 전]</Card.Subtitle>
-                <Card.Subtitle className="ft-gm mt-2 text-muted">{data.predictTime2}분후[{data.locationNo2}번째 전]</Card.Subtitle>
+                <Card.Subtitle className="ft-gm mt-3 text-danger">{data.predictTime1}분후[{data.locationNo1}번째 전] / {data.remainSeatCnt1}석</Card.Subtitle>
+                <Card.Subtitle className="ft-gm mt-2 text-muted">{data.predictTime2}분후[{data.locationNo2}번째 전] / {data.remainSeatCnt2}석</Card.Subtitle>
               </Card.Body>
             </Card>
           ))

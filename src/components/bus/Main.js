@@ -19,24 +19,25 @@ function Main() {
     });
     if (navigator.geolocation) { // GPS 허용
       navigator.geolocation.getCurrentPosition(function(position) {
-
         let queryParams = '?' + encodeURIComponent('serviceKey') + '=' + process.env.REACT_APP_SEOUL_STATION_SERVICE_KEY;
-        queryParams += '&' + encodeURIComponent('tmX') + '=' + encodeURIComponent(position.coords.longitude);
-        queryParams += '&' + encodeURIComponent('tmY') + '=' + encodeURIComponent(position.coords.latitude);
-        // queryParams += '&' + encodeURIComponent('tmX') + '=' + encodeURIComponent(127.0876913);
-        // queryParams += '&' + encodeURIComponent('tmY') + '=' + encodeURIComponent(37.1971109);
-        queryParams += '&' + encodeURIComponent('radius') + '=' + encodeURIComponent('300');
+        // queryParams += '&' + encodeURIComponent('tmX') + '=' + encodeURIComponent(position.coords.longitude);
+        // queryParams += '&' + encodeURIComponent('tmY') + '=' + encodeURIComponent(position.coords.latitude);
+        queryParams += '&' + encodeURIComponent('tmX') + '=' + encodeURIComponent(127.0629685);
+        queryParams += '&' + encodeURIComponent('tmY') + '=' + encodeURIComponent(37.3278958);
+        queryParams += '&' + encodeURIComponent('radius') + '=' + encodeURIComponent('500');
         queryParams += '&' + encodeURIComponent('resultType') + '=' + encodeURIComponent('json');
         AxiosUtil.send("GET", "/getSeoulStation/getStationByPos" + queryParams, "", "", (e) => {
           if (e.msgBody.itemList !== null) {
+            console.log("getStationByPos")
             setStationList(e.msgBody.itemList);
           } else {
             let queryParams2 = '?' + encodeURIComponent('serviceKey') + '=' + process.env.REACT_APP_SEOUL_STATION_SERVICE_KEY;
-            queryParams2 += '&' + encodeURIComponent('x') + '=' + encodeURIComponent(position.coords.longitude);
-            queryParams2 += '&' + encodeURIComponent('y') + '=' + encodeURIComponent(position.coords.latitude);
-            // queryParams2 += '&' + encodeURIComponent('x') + '=' + encodeURIComponent(127.0876913);
-            // queryParams2 += '&' + encodeURIComponent('y') + '=' + encodeURIComponent(37.1971109);
+            //queryParams2 += '&' + encodeURIComponent('x') + '=' + encodeURIComponent(position.coords.longitude);
+            //queryParams2 += '&' + encodeURIComponent('y') + '=' + encodeURIComponent(position.coords.latitude);
+            queryParams2 += '&' + encodeURIComponent('x') + '=' + encodeURIComponent(127.0629685);
+            queryParams2 += '&' + encodeURIComponent('y') + '=' + encodeURIComponent(37.3278958);
             AxiosUtil.send("GET", "/getBusstationservice/getBusStationAroundList" + queryParams2, "", "", (e) => {
+              console.log("getBusStationAroundList")
               const dataArr = new XMLParser().parseFromString(e).children[2];
               let array = new Array();
               if (dataArr !== null) { 
@@ -81,7 +82,7 @@ function Main() {
         </div>
         <div className="container-fluid">
           {stationList.map((data, idx) => (
-            <div className="card-div mt-2" key={idx} onClick={() => getDetail(data.stationNm, data.arsId, data.gpsY, data.gpsX, data.dist, "null")}>
+            <div className="card-div mt-2" key={idx} onClick={() => getDetail(data.stationNm, data.arsId, data.gpsY, data.gpsX, data.dist, data.stationId)}>
               <Card.Body className="card-body">
                 <Card.Title className="ft-gm">{data.stationNm}</Card.Title>
                 <Card.Subtitle className="ft-gm text-danger">{data.dist}m</Card.Subtitle>
