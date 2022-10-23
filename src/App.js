@@ -10,7 +10,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={ <Main/> }/>
         <Route exact path="/detail/:stationNm/:arsId/:gpsY/:gpsX/:dist/:stationId" element={ <Detail/> }/>
-        <Route exact path="/detail-route/:stationNo/:busRouteId" element={ <DetailRoute/> }/>
+        <Route exact path="/detail-route/:stationNo/:busRouteId/:routeTypeCd" element={ <DetailRoute/> }/>
         <Route exact path="/notice-list" element={ <NoticeList/> }/>
         <Route exact path="/notice-detail/:id" element={ <NoticeDetail/> }/>
         <Route exact path="/faq" element={ <Faq/> }/>

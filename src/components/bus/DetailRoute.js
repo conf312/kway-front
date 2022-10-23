@@ -70,43 +70,69 @@ function DetailRoute() {
     setModalBusMapShow(true);
   }
 
-  return (
-    <>
-      <div className={"container-fluid " + (params.stationNo.length === 3 ? "bg-blue" : params.stationNo.length === 4 ? "bg-green" : "bg")}>
-        <br/>
-        <div className="text-center">
-          <h4 className="ft-gm" style={{fontSize:"17px", color:"white"}}>{routeType}</h4>
-          <h4 className="ft-ckr-bold" style={{fontSize:"25px", color:"white"}}>{params.stationNo}</h4>
-          <h4 className="ft-gm" style={{fontSize:"15px", color:"white"}}>{totalRoute}</h4>
-        </div>
-        {stationRouteList.length > 0 && 
-          stationRouteList.map((data, idx) => (
-            <Card className="mt-2" key={idx} onClick={() => getModalBusMap(data.gpsY, data.gpsX)}>
+  function GetContainer() {
+    let containerColor = "bg-etc";
+    if (params.routeTypeCd !== "null") {
+      let routeTypeCd = params.routeTypeCd;
+      if (routeTypeCd === "12" || routeTypeCd === "22" || routeTypeCd === "42" || routeTypeCd === "52") {
+        containerColor = "bg-blue";
+      } else if (routeTypeCd === "11" || routeTypeCd === "14" || routeTypeCd === "16" || routeTypeCd === "21") {
+        containerColor = "bg-red";
+      } else if (routeTypeCd === "13" || routeTypeCd === "23" || routeTypeCd === "43" || routeTypeCd === "53") {
+        containerColor = "bg-green";
+      } else if (routeTypeCd === "30") {
+        containerColor = "bg-yellow";
+      }
+    } else {
+      if (params.stationNo.length === 3 ) {
+        containerColor = "bg-blue";
+      } else if (params.stationNo.length === 4) {
+        containerColor = "bg-green";
+      }
+    }
+
+    return (
+      <>
+        <div className={"container-fluid " + containerColor}>
+          <br/>
+          <div className="text-center">
+            <h4 className="ft-gm" style={{fontSize:"17px", color:"white"}}>{routeType}</h4>
+            <h4 className="ft-ckr-bold" style={{fontSize:"25px", color:"white"}}>{params.stationNo}</h4>
+            <h4 className="ft-gm" style={{fontSize:"15px", color:"white"}}>{totalRoute}</h4>
+          </div>
+          {stationRouteList.length > 0 && 
+            stationRouteList.map((data, idx) => (
+              <Card className="mt-2" key={idx} onClick={() => getModalBusMap(data.gpsY, data.gpsX)}>
+                <Card.Body>
+                  <Card.Subtitle className="ft-gm mt-1">{data.stationNm}<span> ({data.stationNo})</span></Card.Subtitle>
+                  <span className="ft-gm mt-1 text-primary">첫차 {data.beginTm}</span> ~ <span className="ft-gm mt-1 text-danger">막차 {data.lastTm}</span>
+                </Card.Body>
+              </Card>
+            ))
+          } 
+          {stationRouteList.length < 1 && 
+            <Card className="mt-2">
               <Card.Body>
-                <Card.Subtitle className="ft-gm mt-1">{data.stationNm}<span> ({data.stationNo})</span></Card.Subtitle>
-                <span className="ft-gm mt-1 text-primary">첫차 {data.beginTm}</span> ~ <span className="ft-gm mt-1 text-danger">막차 {data.lastTm}</span>
+                <Card.Subtitle className="ft-gm text-danger">배차가 없습니다.</Card.Subtitle>
               </Card.Body>
             </Card>
-          ))
-        } 
-        {stationRouteList.length < 1 && 
-          <Card className="mt-2">
-            <Card.Body>
-              <Card.Subtitle className="ft-gm text-danger">배차가 없습니다.</Card.Subtitle>
-            </Card.Body>
-          </Card>
-        }
-        {showTopButton && (
-          <Button onClick={scrollToTop} className="fw-bold back-to-top">↑</Button>
-        )}
-      </div>
-      <BusStationMap
-        show={modalBusMapShow}
-        onHide={() => setModalBusMapShow(false)}
-        lat={lat}
-        lng={lng}
-      />
-    </>
+          }
+          {showTopButton && (
+            <Button onClick={scrollToTop} className="fw-bold back-to-top">↑</Button>
+          )}
+        </div>
+        <BusStationMap
+          show={modalBusMapShow}
+          onHide={() => setModalBusMapShow(false)}
+          lat={lat}
+          lng={lng}
+        />
+      </>
+    );
+  }
+
+  return (
+    <GetContainer />
   )
 }
 
